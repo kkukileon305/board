@@ -7,12 +7,12 @@ const Login = () => {
   const { data, status } = useSession();
 
   return (
-    <div className='flex gap-2'>
+    <div className='hidden md:flex gap-2'>
       <>
-        <Link className='px-4 py-2 font-bold text-gray-700 dark:text-white bg-transparent rounded-full border' href={'/login'}>
+        <Link className='px-4 py-1 font-bold text-gray-700 dark:text-white bg-transparent rounded-full border' href={'/login'}>
           로그인
         </Link>
-        <Link className='px-4 py-2 font-bold text-white bg-red-400 rounded-full' href={'/register'}>
+        <Link className='px-4 py-1 font-bold text-white bg-red-400 rounded-full' href={'/register'}>
           회원가입
         </Link>
       </>
