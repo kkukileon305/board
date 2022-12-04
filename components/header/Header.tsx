@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import ThemeSwitch from '../components/ThemeSwitch';
-import { categories } from '../lib/categories';
+import ThemeSwitch from './ThemeSwitch';
+import { categories } from '../../lib/categories';
+import Login from './Login';
+import SearchBox from './SearchBox';
 
 const Header = () => {
   return (
@@ -17,7 +19,13 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <ThemeSwitch />
+
+        <div className='flex items-center gap-4'>
+          <SearchBox />
+          <ThemeSwitch />
+        </div>
+
+        <Login />
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-import ThemeSwitch from '../components/ThemeSwitch';
+import ThemeSwitch from '../components/header/ThemeSwitch';
 
 const HomePage = () => {
   return (
