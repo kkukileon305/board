@@ -5,12 +5,14 @@ import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from 'react';
 interface ModalProps {
   setModal: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
+  onClose?: () => void;
 }
 
-const Modal = ({ children, setModal }: ModalProps) => {
+const Modal = ({ children, setModal, onClose }: ModalProps) => {
   const closeModal: MouseEventHandler = ({ target }) => {
     if (target instanceof Element && !target.closest('div.container')) {
       setModal(false);
+      onClose && onClose();
     }
   };
 

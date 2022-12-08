@@ -6,4 +6,8 @@
   html {
     -webkit-tap-highlight-color: transparent;
   }
+
+  input:focus {
+    outline: none;
+  }
 }

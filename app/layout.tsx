@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html className={notosans.className}>
       <head />
-      <body className='min-h-[100vh] bg-white dark:bg-gray-700'>
+      <body className='min-h-screen bg-white dark:bg-gray-700'>
         <Providers>
           <Header />
           {children}
