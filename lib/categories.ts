@@ -16,3 +16,5 @@ export const categories: { url: string; title: string }[] = [
     url: 'queer',
   },
 ];
+
+export type CategoryName = '자유' | '요리' | '생활' | '퀴어';

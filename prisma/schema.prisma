@@ -13,6 +13,7 @@ model User {
   username String @unique
   email String @unique
   boards Board[]
+  comments Comment[]
 }
 
 model Board {
@@ -23,7 +24,7 @@ model Board {
   content   String
   user      User @relation(fields: [username], references: [username])
   username  String
-  category  Category @relation(fields: [categoryName], references: [title])
+  category  Category @relation(fields: [categoryName], references: [title_kor])
   categoryName String 
   published Boolean   @default(true)
   comments Comment[]
@@ -36,11 +37,13 @@ model Comment {
   board Board @relation(fields: [board_id], references: [id])
   board_id Int
   content String
+  user User @relation(fields: [username], references: [username])
+  username String
 }
 
 model Category {
   id        Int       @id @default(autoincrement())
   title     String    @unique
-  title_kor String
+  title_kor String    @unique
   boards Board[]
 }

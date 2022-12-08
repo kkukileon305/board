@@ -1,11 +1,12 @@
 'use client';
 
 import { axiosInstance } from '../lib/axios';
+import useToken from '../zustand/useToken';
 
 const Debug = () => {
+  const token = useToken(store => store.token);
   const onClick = async () => {
-    const { data } = await axiosInstance.get('board');
-    console.log(data);
+    console.log(token);
   };
 
   return <button onClick={onClick}>Debug</button>;
