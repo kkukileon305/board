@@ -12,7 +12,7 @@ const BoardDetail = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className='py-4'>
+      <div className='mb-4'>
         <div className='flex items-center gap-4 mb-2'>
           <h2 className='font-bold text-xl'>{board.title}</h2>
           <p className='px-2 rounded-full border'>{urlToTitle(board.categoryName)}</p>
