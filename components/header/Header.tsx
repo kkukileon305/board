@@ -26,7 +26,9 @@ const Header = () => {
           <ThemeSwitch />
         </div>
 
-        <Login />
+        <div className='hidden md:flex gap-2 w-[200px]'>
+          <Login />
+        </div>
         <Menu />
       </div>
     </header>

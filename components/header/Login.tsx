@@ -13,7 +13,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className='hidden md:flex gap-2 w-[200px]'>
+    <>
       {loading && token ? (
         <div className='flex justify-end w-full'>
           <button onClick={() => setToken('')} className=' px-4 py-1 font-bold text-white bg-red-400 rounded-full'>
@@ -30,7 +30,7 @@ const Login = () => {
           </Link>
         </>
       )}
-    </div>
+    </>
   );
 };
 export default Login;
