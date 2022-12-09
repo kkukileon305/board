@@ -23,7 +23,7 @@ const BoardPage = ({ searchParams }: { searchParams?: { category: string } }) =>
 
   useEffect(() => {
     refetch();
-  }, [searchParams?.category]);
+  }, [searchParams?.category, refetch]);
 
   if (!boardsInfinite) {
     return (
