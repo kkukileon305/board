@@ -8,7 +8,7 @@ import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { BoardWithComment } from '../components/Item';
 
 const getBoards = async (pageParam = 1): Promise<BoardWithComment[]> => {
-  const res = await fetch(`http://localhost:3000/api/board?skip=${pageParam}`);
+  const res = await fetch(`/api/board?skip=${pageParam}`);
   return res.json();
 };
 
