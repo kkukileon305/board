@@ -18,7 +18,7 @@ type Board = {
 };
 
 const getBoard = async (id: number): Promise<Board> => {
-  const res = await fetch(`/api/board?id=${id}`);
+  const res = await fetch(`https://board-nine.vercel.app/api/board?id=${id}`);
 
   return res.json();
 };

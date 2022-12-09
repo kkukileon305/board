@@ -9,7 +9,7 @@ import { urlToTitle } from '../../lib/categories';
 import { BoardWithComment } from '../../components/Item';
 
 const getBoards = async (pageParam = 1, categoryName: string): Promise<BoardWithComment[]> => {
-  const res = await fetch(`/api/board?categoryName=${categoryName}&skip=${pageParam}`);
+  const res = await fetch(`https://board-nine.vercel.app/api/board?categoryName=${categoryName}&skip=${pageParam}`);
 
   return res.json();
 };

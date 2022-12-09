@@ -34,6 +34,8 @@ const handler: NextApiHandler = async (req, res) => {
     const skip = req.query.skip || '1';
 
     if (typeof id === 'string' && id) {
+      console.log(id);
+
       const [board, comments] = await Promise.all([
         prisma.board.findFirst({
           where: {
