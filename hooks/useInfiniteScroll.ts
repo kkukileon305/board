@@ -13,7 +13,7 @@ const useInfiniteScroll = ({ fetcher, key }: InfiniteScrollProps) => {
   } = useInfiniteQuery<Board[]>({
     queryFn: ({ pageParam = 1 }) => fetcher(pageParam),
     queryKey: [key],
-    getNextPageParam: (lastPage, allPage) => (lastPage.length < 8 ? undefined : allPage.length + 1),
+    getNextPageParam: (lastPage, allPage) => (lastPage.length < 16 ? undefined : allPage.length + 1),
   });
 
   useEffect(() => {

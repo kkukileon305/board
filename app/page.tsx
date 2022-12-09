@@ -2,7 +2,7 @@
 
 import { Board } from '@prisma/client';
 import Link from 'next/link';
-import { BsPlusCircle, BsThreeDots } from 'react-icons/bs';
+import { BsPlus, BsThreeDots } from 'react-icons/bs';
 import { ImSpinner2 } from 'react-icons/im';
 import Item from '../components/Item';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
@@ -39,8 +39,8 @@ const HomePage = () => {
           <BsThreeDots size={30} />
         </div>
       )}
-      <Link className='fixed bottom-4 right-4' href={'/post'}>
-        <BsPlusCircle size={30} />
+      <Link className='fixed bottom-4 right-4 text-white bg-red-400 rounded-full' href={'/post'}>
+        <BsPlus size={40} />
       </Link>
     </>
   );

@@ -39,6 +39,7 @@ model Comment {
   content String
   user User @relation(fields: [username], references: [username])
   username String
+  published Boolean @default(true)
 }
 
 model Category {

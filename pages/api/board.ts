@@ -10,12 +10,19 @@ const handler: NextApiHandler = async (req, res) => {
 
     if (typeof id === 'string' && id) {
       const [board, comments] = await Promise.all([
-        prisma.board.findUnique({
+        prisma.board.findFirst({
           where: {
-            id: Number(id),
+            AND: {
+              id: Number(id),
+              published: true,
+            },
           },
         }),
-        prisma.comment.findMany(),
+        prisma.comment.findMany({
+          where: {
+            published: true,
+          },
+        }),
       ]);
 
       if (!board)
@@ -33,12 +40,19 @@ const handler: NextApiHandler = async (req, res) => {
             id: 'desc',
           },
           where: {
-            categoryName,
+            AND: {
+              categoryName,
+              published: true,
+            },
           },
-          skip: (Number(skip) - 1) * 8,
-          take: 8,
+          skip: (Number(skip) - 1) * 16,
+          take: 16,
         }),
-        prisma.comment.findMany(),
+        prisma.comment.findMany({
+          where: {
+            published: true,
+          },
+        }),
       ]);
 
       const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
@@ -50,10 +64,17 @@ const handler: NextApiHandler = async (req, res) => {
           orderBy: {
             id: 'desc',
           },
-          skip: (Number(skip) - 1) * 8,
-          take: 8,
+          skip: (Number(skip) - 1) * 16,
+          take: 16,
+          where: {
+            published: true,
+          },
         }),
-        prisma.comment.findMany(),
+        prisma.comment.findMany({
+          where: {
+            published: true,
+          },
+        }),
       ]);
 
       const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
@@ -96,6 +117,49 @@ const handler: NextApiHandler = async (req, res) => {
         error,
       });
     }
+  } else if (req.method === 'PATCH') {
+    const { token, id } = req.body;
+
+    if (!token || !id)
+      return res.status(400).json({
+        message: 'failed',
+      });
+
+    const email = verify(token, process.env.NEXT_PUBLIC_KEY as string) as string;
+    const [user, board] = await Promise.all([
+      prisma.user.findUnique({ where: { email } }),
+      prisma.board.findFirst({
+        where: {
+          AND: {
+            id,
+            published: true,
+          },
+        },
+      }),
+    ]);
+
+    if (!user || !board)
+      return res.status(400).json({
+        message: 'failed',
+      });
+
+    if (board.username !== user.username)
+      return res.status(400).json({
+        message: 'user 불일치',
+      });
+
+    await prisma.board.update({
+      where: {
+        id,
+      },
+      data: {
+        published: false,
+      },
+    });
+
+    return res.json({
+      message: 'board deleted',
+    });
   }
 };
 
