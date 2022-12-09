@@ -10,6 +10,7 @@ const useInfiniteScroll = <T>({ fetcher, key }: InfiniteScrollProps<T>) => {
     data: boardsInfinite,
     fetchNextPage,
     hasNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryFn: ({ pageParam = 1 }) => fetcher(pageParam),
     queryKey: [key],
@@ -35,7 +36,7 @@ const useInfiniteScroll = <T>({ fetcher, key }: InfiniteScrollProps<T>) => {
     return () => observer.disconnect();
   }, [spinnerElement]);
 
-  return { setSpinnerElement, boardsInfinite, hasNextPage };
+  return { setSpinnerElement, boardsInfinite, hasNextPage, refetch };
 };
 
 export default useInfiniteScroll;

@@ -10,9 +10,7 @@ const client = new QueryClient();
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider attribute='class'>
-      <SessionProvider>
-        <QueryClientProvider client={client}>{children}</QueryClientProvider>
-      </SessionProvider>
+      <QueryClientProvider client={client}>{children}</QueryClientProvider>
     </ThemeProvider>
   );
 };
