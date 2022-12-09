@@ -1,11 +1,9 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsSearch } from 'react-icons/bs';
-import Item, { Board } from '../../components/Item';
-import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import Item, { BoardWithComment } from '../../components/Item';
 import { axiosInstance } from '../../lib/axios';
 
 type Inputs = {
@@ -14,7 +12,7 @@ type Inputs = {
 
 const SearchPage = () => {
   const { data: response, mutateAsync } = useMutation({
-    mutationFn: (value: string) => axiosInstance.get<Board[]>(`/board?q=${value}`),
+    mutationFn: (value: string) => axiosInstance.get<BoardWithComment[]>(`/board?q=${value}`),
     mutationKey: ['search'],
   });
 

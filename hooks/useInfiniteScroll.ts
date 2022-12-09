@@ -2,15 +2,15 @@ import { Board } from '@prisma/client';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 
-type InfiniteScrollProps = { fetcher: (pageParam: number) => Promise<Board[]>; key: string };
+type InfiniteScrollProps<T> = { fetcher: (pageParam: number) => Promise<T[]>; key: string };
 
-const useInfiniteScroll = ({ fetcher, key }: InfiniteScrollProps) => {
+const useInfiniteScroll = <T>({ fetcher, key }: InfiniteScrollProps<T>) => {
   const [spinnerElement, setSpinnerElement] = useState<HTMLDivElement | null>(null);
   const {
     data: boardsInfinite,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<Board[]>({
+  } = useInfiniteQuery({
     queryFn: ({ pageParam = 1 }) => fetcher(pageParam),
     queryKey: [key],
     getNextPageParam: (lastPage, allPage) => (lastPage.length < 16 ? undefined : allPage.length + 1),

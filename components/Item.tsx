@@ -2,7 +2,7 @@ import { Comment } from '@prisma/client';
 import Link from 'next/link';
 import { urlToTitle } from '../lib/categories';
 
-export type Board = {
+export type BoardWithComment = {
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -14,7 +14,7 @@ export type Board = {
   comments: Comment[];
 };
 
-const Item = ({ board }: { board: Board }) => {
+const Item = ({ board }: { board: BoardWithComment }) => {
   return (
     <li>
       <Link className='block w-full p-3 my-2 border rounded-xl hover:text-white hover:bg-gray-400' href={`/board/${board.id}`}>
@@ -30,4 +30,5 @@ const Item = ({ board }: { board: Board }) => {
     </li>
   );
 };
+
 export default Item;
