@@ -4,7 +4,32 @@ import { prisma } from '../../lib/prismaClient';
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'GET') {
-    const { id, categoryName } = req.query;
+    const { id, categoryName, q } = req.query;
+
+    if (q && typeof q === 'string') {
+      const [boards, comments] = await Promise.all([
+        prisma.board.findMany({
+          where: {
+            published: true,
+            title: {
+              contains: q,
+            },
+          },
+          orderBy: {
+            id: 'desc',
+          },
+        }),
+        prisma.comment.findMany({
+          where: {
+            published: true,
+          },
+        }),
+      ]);
+
+      const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
+
+      return res.json(boardsWithComments);
+    }
 
     const skip = req.query.skip || '1';
 

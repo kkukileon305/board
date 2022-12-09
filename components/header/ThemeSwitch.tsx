@@ -11,7 +11,7 @@ const ThemeSwitch = () => {
       onClick={() => setTheme(theme === 'dark' ? 'white' : 'dark')}
       className='bg-gray-400 p-1 rounded-full w-[70px]'
     >
-      <span className='aspect-square block w-fit p-1 translate-x-[0px] dark:translate-x-[34px] transition bg-white rounded-full overflow-hidden'>{theme === 'dark' ? <BsMoon size={20} color='gray' /> : <BsSun size={20} color='gray' />}</span>
+      <span className='aspect-square block m-0 w-fit p-1 translate-x-[0px] dark:translate-x-[34px] transition bg-white rounded-full overflow-hidden'>{theme === 'dark' ? <BsMoon size={20} color='gray' /> : <BsSun size={20} color='gray' />}</span>
     </button>
   );
 };
