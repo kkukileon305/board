@@ -4,11 +4,62 @@ import { prisma } from '../../lib/prismaClient';
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'GET') {
-    const [boards, comments] = await Promise.all([prisma.board.findMany(), prisma.comment.findMany()]);
+    const { id, categoryName } = req.query;
 
-    const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
+    const skip = req.query.skip || '1';
 
-    return res.json(boardsWithComments);
+    if (typeof id === 'string' && id) {
+      const [board, comments] = await Promise.all([
+        prisma.board.findUnique({
+          where: {
+            id: Number(id),
+          },
+        }),
+        prisma.comment.findMany(),
+      ]);
+
+      if (!board)
+        return res.status(400).json({
+          message: 'failed',
+        });
+
+      const boardWithComments = { ...board, comments: comments.filter(comment => comment.board_id === board.id) };
+
+      return res.json(boardWithComments);
+    } else if (typeof categoryName === 'string' && categoryName) {
+      const [boards, comments] = await Promise.all([
+        prisma.board.findMany({
+          orderBy: {
+            id: 'desc',
+          },
+          where: {
+            categoryName,
+          },
+          skip: (Number(skip) - 1) * 8,
+          take: 8,
+        }),
+        prisma.comment.findMany(),
+      ]);
+
+      const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
+
+      return res.json(boardsWithComments);
+    } else {
+      const [boards, comments] = await Promise.all([
+        prisma.board.findMany({
+          orderBy: {
+            id: 'desc',
+          },
+          skip: (Number(skip) - 1) * 8,
+          take: 8,
+        }),
+        prisma.comment.findMany(),
+      ]);
+
+      const boardsWithComments = boards.map(board => ({ ...board, comments: comments.filter(comment => board.id === comment.board_id) }));
+
+      return res.json(boardsWithComments);
+    }
   } else if (req.method === 'POST') {
     const { title, content, token, categoryName } = req.body;
 

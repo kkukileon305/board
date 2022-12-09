@@ -18,3 +18,5 @@ export const categories: { url: string; title: string }[] = [
 ];
 
 export type CategoryName = '자유' | '요리' | '생활' | '퀴어';
+
+export const urlToTitle = (url: string) => categories.find(category => category.url === url)?.title || '잘못된 url';

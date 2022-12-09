@@ -24,7 +24,7 @@ model Board {
   content   String
   user      User @relation(fields: [username], references: [username])
   username  String
-  category  Category @relation(fields: [categoryName], references: [title_kor])
+  category  Category @relation(fields: [categoryName], references: [title])
   categoryName String 
   published Boolean   @default(true)
   comments Comment[]
