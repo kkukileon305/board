@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { BsSearch } from 'react-icons/bs';
 import Item, { BoardWithComment } from '../../components/Item';
+import ItemSkeleton from '../../components/ItemSkeleton';
 import { axiosInstance } from '../../lib/axios';
 
 type Inputs = {
@@ -11,7 +12,11 @@ type Inputs = {
 };
 
 const SearchPage = () => {
-  const { data: response, mutateAsync } = useMutation({
+  const {
+    data: response,
+    mutateAsync,
+    isLoading,
+  } = useMutation({
     mutationFn: (value: string) => axiosInstance.get<BoardWithComment[]>(`/board?q=${value}`),
     mutationKey: ['search'],
   });
@@ -28,13 +33,24 @@ const SearchPage = () => {
 
   return (
     <>
-      <form className='flex items-center gap-2' onSubmit={handleSubmit(onSubmit)}>
-        <input className='block w-[calc(100%-32px)] px-4 py-1 border rounded-full bg-transparent' placeholder='검색' type='text' {...register('search', { required: true })} />
+      <form className='flex items-center gap-2 px-4 py-2 border rounded-full' onSubmit={handleSubmit(onSubmit)}>
+        <input className='block w-[calc(100%-32px)] bg-transparent' placeholder='검색' type='text' {...register('search', { required: true })} />
         <button>
           <BsSearch size={24} />
         </button>
       </form>
-      {response ? (
+      {isLoading && (
+        <>
+          <div className='flex justify-center my-4'>
+            <div className='h-[28px] w-[100px] bg-gray-400 rounded' />
+          </div>
+          <ItemSkeleton />
+          <ItemSkeleton />
+          <ItemSkeleton />
+          <ItemSkeleton />
+        </>
+      )}
+      {response && (
         <>
           <h2 className='font-bold text-xl text-center my-4 ml-3'>검색결과 ({response.data.length})</h2>
           <ul>
@@ -43,8 +59,6 @@ const SearchPage = () => {
             ))}
           </ul>
         </>
-      ) : (
-        <h2 className='font-bold text-xl text-center my-4'>검색해주세요</h2>
       )}
     </>
   );

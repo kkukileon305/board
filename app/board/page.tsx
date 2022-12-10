@@ -8,6 +8,7 @@ import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { urlToTitle } from '../../lib/categories';
 import { BoardWithComment } from '../../components/Item';
 import { useSearchParams } from 'next/navigation';
+import ItemSkeleton from '../../components/ItemSkeleton';
 
 const getBoards = async (pageParam = 1, categoryName: string): Promise<BoardWithComment[]> => {
   const res = await fetch(`/api/board?categoryName=${categoryName}&skip=${pageParam}`);
@@ -26,9 +27,14 @@ const BoardPage = () => {
 
   if (!boardsInfinite) {
     return (
-      <div className='flex justify-center py-4 my-2'>
-        <ImSpinner2 className='animate-spin' size={30} />
-      </div>
+      <>
+        <div className='h-8 w-[60px] bg-gray-400 rounded mb-4' />
+        <ItemSkeleton />
+        <ItemSkeleton />
+        <ItemSkeleton />
+        <ItemSkeleton />
+        <ItemSkeleton />
+      </>
     );
   }
 

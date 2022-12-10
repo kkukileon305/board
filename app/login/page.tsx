@@ -48,7 +48,7 @@ const LoginPage = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='max-w-[400px] mx-auto w-full flex flex-col p-3 gap-4'>
         <h2 className='font-bold text-2xl my-4'>로그인</h2>
-        <input className='bg-transparent border-b p-2' placeholder='이메일' type='email' {...register('email', { required: true })} />
+        <input autoComplete='off' className='bg-transparent border-b p-2' placeholder='이메일' type='email' {...register('email', { required: true })} />
         <input className='bg-transparent border-b p-2' placeholder='비밀번호' type='password' autoComplete='off' {...register('password', { required: true, minLength: 6 })} />
         <button className='w-full flex justify-center' disabled={disabled}>
           {disabled ? <ImSpinner2 className='animate-spin' size={30} /> : '로그인하기'}

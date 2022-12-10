@@ -17,7 +17,7 @@ const Modal = ({ children, setModal, onClose }: ModalProps) => {
   };
 
   return (
-    <div onClick={closeModal} className='fixed px-3 w-full h-full flex justify-center items-center top-0 left-0 bg-black/50 z-20'>
+    <div onClick={closeModal} className='fixed px-3 w-screen h-screen flex justify-center items-center top-0 left-0 bg-black/50 z-20'>
       <div className='max-w-[400px] w-full bg-white dark:bg-gray-700 border rounded-xl p-4 container'>{children}</div>
     </div>
   );

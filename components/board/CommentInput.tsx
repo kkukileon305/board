@@ -54,7 +54,7 @@ const CommentInput = ({ board }: CommentInputProps) => {
       )}
       <div className='w-full fixed left-0 bottom-0 bg-white border-t dark:bg-gray-600'>
         <form onSubmit={handleSubmit(onSubmit)} className='p-3 w-full max-w-[1060px] gap-[20px] mx-auto flex'>
-          <input className='bg-transparent border p-2 block w-[calc(100%-60px)]' placeholder='댓글' type='text' {...register('content', { required: true })} />
+          <input autoComplete='off' className='bg-transparent border p-2 block w-[calc(100%-60px)]' placeholder='댓글' type='text' {...register('content', { required: true })} />
           <button disabled={disabled} className='flex justify-center items-center w-[40px] aspect-square bg-red-400 font-bold text-white'>
             {disabled ? <ImSpinner2 className='animate-spin mx-auto' size={24} /> : <BsUpload size={24} />}
           </button>

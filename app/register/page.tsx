@@ -50,9 +50,9 @@ const RegisterPage = () => {
       )}
       <form onSubmit={handleSubmit(onSubmit)} className='max-w-[400px] mx-auto w-full flex flex-col p-3 gap-4'>
         <h2 className='font-bold text-2xl my-4'>회원가입</h2>
-        <input className='bg-transparent border-b p-2' placeholder='이메일' type='email' {...register('email', { required: true })} />
+        <input className='bg-transparent border-b p-2' placeholder='이메일' autoComplete='off' type='email' {...register('email', { required: true })} />
         <input className='bg-transparent border-b p-2' placeholder='비밀번호' type='password' autoComplete='off' {...register('password', { required: true, minLength: 6 })} />
-        <input className='bg-transparent border-b p-2' placeholder='닉네임' type='text' {...register('username', { required: true })} />
+        <input className='bg-transparent border-b p-2' placeholder='닉네임' autoComplete='off' type='text' {...register('username', { required: true })} />
         <button disabled={disabled}>{disabled ? <ImSpinner2 className='animate-spin' size={30} /> : '가입하기'}</button>
       </form>
     </>
