@@ -7,7 +7,6 @@ import Item from '../../components/Item';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { urlToTitle } from '../../lib/categories';
 import { BoardWithComment } from '../../components/Item';
-import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 const getBoards = async (pageParam = 1, categoryName: string): Promise<BoardWithComment[]> => {
@@ -20,7 +19,7 @@ const BoardPage = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
 
-  const { boardsInfinite, hasNextPage, setSpinnerElement, refetch } = useInfiniteScroll({
+  const { boardsInfinite, hasNextPage, setSpinnerElement } = useInfiniteScroll({
     fetcher: (pageParam = 1) => getBoards(pageParam, category || 'free'),
     key: `${category}list`,
   });

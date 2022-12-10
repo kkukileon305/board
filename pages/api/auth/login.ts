@@ -12,7 +12,7 @@ const register: NextApiHandler = async (req, res) => {
         message: 'invalide form',
       });
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
